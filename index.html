@@ -98,6 +98,8 @@
     }
 
     #qrcode {
+      display: flex;
+      justify-content: center;
       margin-top: 20px;
     }
   </style>
@@ -127,7 +129,6 @@
   </div>
 
   <script>
-    const iconGallery = document.getElementById("iconGallery");
     const icons = document.querySelectorAll(".icon-option");
     let selectedIcon = null;
 
@@ -149,6 +150,7 @@
         alert("URL을 입력해주세요!");
         return;
       }
+
       qrDiv.innerHTML = "";
       const qr = new QRCode(qrDiv, {
         text: url,
@@ -157,9 +159,10 @@
         correctLevel: QRCode.CorrectLevel.H
       });
 
+      // QR 코드 렌더링 완료 후 아이콘 삽입
       setTimeout(() => {
         const canvas = qrDiv.querySelector("canvas");
-        if (selectedIcon && canvas) {
+        if (canvas && selectedIcon) {
           const ctx = canvas.getContext("2d");
           const iconImg = new Image();
           iconImg.crossOrigin = "anonymous";
@@ -172,7 +175,7 @@
           };
         }
         downloadBtn.style.display = "inline-block";
-      }, 300);
+      }, 500); // 렌더링 시간 충분히 확보
     });
 
     downloadBtn.addEventListener("click", () => {
