@@ -3,149 +3,83 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QR 코드 + 아이콘 생성기</title>
+  <title>QR 코드 생성기</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
     body {
-      font-family: 'Pretendard', sans-serif;
-      background: #f5f6fa;
-      text-align: center;
+      font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+      background-color: #fdf6ee;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
       margin: 0;
-      padding: 40px 15px;
+      padding: 30px 15px;
+      text-align: center;
     }
-
-    .container {
-      background: #fff;
-      max-width: 550px;
-      margin: 0 auto;
-      border-radius: 15px;
-      padding: 25px 20px 35px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    }
-
     h2 {
       font-size: 1.4em;
-      margin-bottom: 20px;
+      color: #333;
+      margin-bottom: 25px;
     }
-
     input {
       width: 90%;
       max-width: 400px;
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    .icon-gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    .icon-option {
-      width: 50px;
-      height: 50px;
-      border: 2px solid transparent;
+      padding: 12px;
       border-radius: 10px;
-      cursor: pointer;
-      transition: transform 0.2s, border 0.2s;
-      background-color: #fff;
-    }
-
-    .icon-option:hover {
-      transform: scale(1.1);
-    }
-
-    .icon-option.selected {
-      border-color: #007bff;
-      box-shadow: 0 0 6px rgba(0,123,255,0.4);
-    }
-
-    #generateBtn {
-      background: #007bff;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      cursor: pointer;
+      border: 1px solid #ccc;
       font-size: 16px;
-      transition: background 0.2s;
+      box-sizing: border-box;
+      margin-bottom: 20px;
     }
-
-    #generateBtn:hover {
-      background: #0056b3;
-    }
-
-    #downloadBtn {
-      background: #28a745;
-      color: white;
+    button {
       border: none;
-      padding: 8px 18px;
-      border-radius: 8px;
-      margin-top: 10px;
-      display: none;
+      border-radius: 10px;
+      font-size: 16px;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: background 0.3s;
     }
-
+    #generateBtn {
+      background-color: #007bff;
+      color: white;
+      padding: 12px 24px;
+    }
+    #generateBtn:hover {
+      background-color: #0056b3;
+    }
+    #downloadBtn {
+      display: none;
+      background-color: #28a745;
+      color: white;
+      padding: 10px 20px;
+      margin-top: 15px;
+    }
     #downloadBtn:hover {
-      background: #1e7e34;
+      background-color: #1e7e34;
     }
-
     #qrcode {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 20px;
+      margin-top: 25px;
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
     }
-
     canvas {
       display: block;
-      margin: 0 auto;
+      margin: auto;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>👋 QR 코드 + 아이콘 생성기</h2>
-    <input type="text" id="urlInput" placeholder="https://example.com" />
+  <h2>🎯 QR 코드 생성기</h2>
+  <input type="text" id="urlInput" placeholder="https://example.com 입력" />
+  <button id="generateBtn">QR 코드 생성</button>
 
-    <div class="icon-gallery" id="iconGallery">
-      
-      <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" title="YouTube">
-      <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" title="Facebook">
-      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" title="KakaoTalk">
-      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968854.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/5968/5968854.png" title="Naver">
-      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" title="Twitter">
-      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111432.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/2111/2111432.png" title="Pinterest">
-      <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/174/174857.png" title="LinkedIn">
-      <img src="https://cdn-icons-png.flaticon.com/512/2504/2504947.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/2504/2504947.png" title="PayPal">
-      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" title="Google Maps">
-    </div>
-
-    <button id="generateBtn">QR 코드 생성</button>
-
-    <div id="qrcode"></div>
-    <button id="downloadBtn">이미지 다운로드</button>
-  </div>
+  <div id="qrcode"></div>
+  <button id="downloadBtn">이미지 다운로드</button>
 
   <script>
-    const icons = document.querySelectorAll(".icon-option");
-    let selectedIcon = null;
-
-    icons.forEach(icon => {
-      icon.addEventListener("click", () => {
-        icons.forEach(i => i.classList.remove("selected"));
-        icon.classList.add("selected");
-        selectedIcon = icon.dataset.src;
-      });
-    });
-
     const qrDiv = document.getElementById("qrcode");
     const generateBtn = document.getElementById("generateBtn");
     const downloadBtn = document.getElementById("downloadBtn");
@@ -156,43 +90,26 @@
         alert("URL을 입력해주세요!");
         return;
       }
-
       qrDiv.innerHTML = "";
       const qr = new QRCode(qrDiv, {
         text: url,
-        width: 240,
-        height: 240,
+        width: 220,
+        height: 220,
         correctLevel: QRCode.CorrectLevel.H
       });
-
-      // 렌더링이 확실히 끝난 뒤 아이콘 삽입
       setTimeout(() => {
-        const canvas = qrDiv.querySelector("canvas");
-        if (canvas && selectedIcon) {
-          const ctx = canvas.getContext("2d");
-          const iconImg = new Image();
-          iconImg.crossOrigin = "anonymous";
-          iconImg.src = selectedIcon;
-          iconImg.onload = () => {
-            const size = 55;
-            const x = (canvas.width - size) / 2;
-            const y = (canvas.height - size) / 2;
-            ctx.drawImage(iconImg, x, y, size, size);
-          };
-        }
         downloadBtn.style.display = "inline-block";
-      }, 700); // 충분히 여유 있는 시간 확보
+      }, 300);
     });
 
     downloadBtn.addEventListener("click", () => {
       const canvas = qrDiv.querySelector("canvas");
       if (!canvas) return;
       const link = document.createElement("a");
-      link.download = "qr_with_icon.png";
+      link.download = "qrcode.png";
       link.href = canvas.toDataURL("image/png");
       link.click();
     });
   </script>
 </body>
 </html>
-
