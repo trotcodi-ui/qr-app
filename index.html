@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR 코드 + 아이콘 생성기</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    body {
+      font-family: 'Pretendard', sans-serif;
+      text-align: center;
+      background: #f9fafc;
+      color: #333;
+      padding: 30px;
+    }
+    h2 {
+      color: #111;
+    }
+    input, select {
+      width: 90%;
+      max-width: 400px;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+    button {
+      margin-top: 15px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #qrcode {
+      margin-top: 25px;
+    }
+    #downloadBtn {
+      display: none;
+      background: #28a745;
+    }
+  </style>
+</head>
+<body>
+  <h2>🎨 QR 코드 + 아이콘 생성기</h2>
+  <input id="qrText" type="text" placeholder="URL 또는 텍스트를 입력하세요">
+  <br>
+  <select id="iconSelect">
+    <option value="">아이콘 없음</option>
+    <option value="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png">📷 인스타그램</option>
+    <option value="https://upload.wikimedia.org/wikipedia/commons/9/95/Youtube_logo_2017.svg">▶️ 유튜브</option>
+    <option value="https://upload.wikimedia.org/wikipedia/commons/6/6b/Facebook_Logo_2023.png">📘 페이스북</option>
+    <option value="https://upload.wikimedia.org/wikipedia/commons/8/87/Google_Maps_icon_%282020%29.svg">📍 구글지도</option>
+  </select>
+  <br>
+  <button id="makeQR">QR 코드 생성</button>
+  <div id="qrcode"></div>
+  <canvas id="qrCanvas" style="display:none;"></canvas>
+  <br>
+  <button id="downloadBtn">이미지 다운로드</button>
+
+  <script>
+    const makeBtn = document.getElementById('makeQR');
+    const dlBtn = document.getElementById('downloadBtn');
+    const qrDiv = document.getElementById('qrcode');
+    const canvas = document.getElementById('qrCanvas');
+
+    makeBtn.addEventListener('click', () => {
+      const text = document.getElementById('qrText').value.trim();
+      const iconUrl = document.getElementById('iconSelect').value;
+
+      if (!text) {
+        alert('URL 또는 텍스트를 입력하세요!');
+        return;
+      }
+
+      qrDiv.innerHTML = '';
+      const qr = new QRCode(qrDiv, {
+        text: text,
+        width: 220,
+        height: 220,
+        correctLevel: QRCode.CorrectLevel.H
+      });
+
+      setTimeout(() => {
+        const qrCanvas = qrDiv.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = qrCanvas.width;
+        canvas.height = qrCanvas.height;
+        ctx.drawImage(qrCanvas, 0, 0);
+
+        if (iconUrl) {
+          const icon = new Image();
+          icon.crossOrigin = 'anonymous';
+          icon.src = iconUrl;
+          icon.onload = () => {
+            const size = 50;
+            const x = (canvas.width - size) / 2;
+            const y = (canvas.height - size) / 2;
+            ctx.drawImage(icon, x, y, size, size);
+            qrDiv.innerHTML = `<img src="${canvas.toDataURL()}" width="220" height="220">`;
+            dlBtn.style.display = 'inline-block';
+          };
+        } else {
+          qrDiv.innerHTML = `<img src="${canvas.toDataURL()}" width="220" height="220">`;
+          dlBtn.style.display = 'inline-block';
+        }
+
+        dlBtn.onclick = () => {
+          const a = document.createElement('a');
+          a.download = 'qrcode.png';
+          a.href = canvas.toDataURL();
+          a.click();
+        };
+      }, 500);
+    });
+  </script>
+</body>
+</html>
