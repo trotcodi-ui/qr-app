@@ -8,14 +8,26 @@
   <style>
     body {
       font-family: 'Pretendard', sans-serif;
+      background: #f5f6fa;
       text-align: center;
-      padding: 20px;
-      background: #fafafa;
+      margin: 0;
+      padding: 40px 15px;
     }
+
+    .container {
+      background: #fff;
+      max-width: 550px;
+      margin: 0 auto;
+      border-radius: 15px;
+      padding: 25px 20px 35px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
     h2 {
-      font-size: 1.3em;
-      margin-bottom: 15px;
+      font-size: 1.4em;
+      margin-bottom: 20px;
     }
+
     input {
       width: 90%;
       max-width: 400px;
@@ -23,36 +35,37 @@
       font-size: 16px;
       border-radius: 8px;
       border: 1px solid #ccc;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
+      text-align: center;
     }
+
     .icon-gallery {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 10px;
-      margin-bottom: 15px;
-      max-width: 520px;          /* ✅ 티스토리 폭 제한 대응 */
-      margin-left: auto;
-      margin-right: auto;
-      overflow-y: auto;
+      margin-bottom: 20px;
     }
+
     .icon-option {
       width: 50px;
       height: 50px;
       border: 2px solid transparent;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
       transition: transform 0.2s, border 0.2s;
       background-color: #fff;
-      box-shadow: 0 0 3px rgba(0,0,0,0.1);
     }
+
     .icon-option:hover {
       transform: scale(1.1);
     }
+
     .icon-option.selected {
       border-color: #007bff;
-      box-shadow: 0 0 6px rgba(0,123,255,0.6);
+      box-shadow: 0 0 6px rgba(0,123,255,0.4);
     }
+
     #generateBtn {
       background: #007bff;
       color: white;
@@ -63,9 +76,11 @@
       font-size: 16px;
       transition: background 0.2s;
     }
+
     #generateBtn:hover {
       background: #0056b3;
     }
+
     #downloadBtn {
       background: #28a745;
       color: white;
@@ -77,35 +92,39 @@
       cursor: pointer;
       transition: background 0.2s;
     }
+
     #downloadBtn:hover {
       background: #1e7e34;
     }
+
     #qrcode {
       margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <h2>🐣 QR 코드 + 아이콘 생성기</h2>
-  <input type="text" id="urlInput" placeholder="https://example.com" />
+  <div class="container">
+    <h2>👋 QR 코드 + 아이콘 생성기</h2>
+    <input type="text" id="urlInput" placeholder="https://example.com" />
 
-  <div class="icon-gallery" id="iconGallery">
-    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" title="YouTube">
-    <img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/733/733558.png" title="Instagram">
-    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" title="Facebook">
-    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" title="KakaoTalk">
-    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968854.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/5968/5968854.png" title="Naver">
-    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" title="Twitter">
-    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111432.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/2111/2111432.png" title="Pinterest">
-    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/174/174857.png" title="LinkedIn">
-    <img src="https://cdn-icons-png.flaticon.com/512/2504/2504947.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/2504/2504947.png" title="PayPal">
-    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" title="Google Maps">
+    <div class="icon-gallery" id="iconGallery">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/733/733558.png" title="Instagram">
+      <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" title="YouTube">
+      <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" title="Facebook">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" title="KakaoTalk">
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968854.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/5968/5968854.png" title="Naver">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" title="Twitter">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111432.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/2111/2111432.png" title="Pinterest">
+      <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/174/174857.png" title="LinkedIn">
+      <img src="https://cdn-icons-png.flaticon.com/512/2504/2504947.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/2504/2504947.png" title="PayPal">
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" class="icon-option" data-src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" title="Google Maps">
+    </div>
+
+    <button id="generateBtn">QR 코드 생성</button>
+
+    <div id="qrcode"></div>
+    <button id="downloadBtn">이미지 다운로드</button>
   </div>
-
-  <button id="generateBtn">QR 코드 생성</button>
-
-  <div id="qrcode"></div>
-  <button id="downloadBtn">이미지 다운로드</button>
 
   <script>
     const iconGallery = document.getElementById("iconGallery");
